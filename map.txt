@@ -1,0 +1,35 @@
+kashif-rugs/
+├─ backend/
+│  ├─ server.js
+│  ├─ models/
+│  │  └─ Carpet.js
+│  ├─ routes/
+│  │  └─ carpets.js
+│  ├─ uploads/
+│  ├─ .env
+│  └─ package.json
+│
+├─ frontend/
+│  ├─ public/
+│  │  └─ logo.png
+│  ├─ src/
+│  │  ├─ components/
+│  │  │  ├─ Navbar.jsx
+│  │  │  ├─ Footer.jsx
+│  │  │  ├─ Hero.jsx
+│  │  │  └─ AdminForm.jsx
+│  │  ├─ pages/
+│  │  │  ├─ Home.jsx
+│  │  │  ├─ Carpets.jsx
+│  │  │  └─ Admin.jsx
+│  │  ├─ services/
+│  │  │  └─ carpetService.js
+│  │  ├─ App.jsx
+│  │  ├─ main.jsx
+│  │  └─ index.css
+│  ├─ tailwind.config.js
+│  ├─ postcss.config.js
+│  ├─ vite.config.js
+│  └─ package.json
+│
+└─ README.md
