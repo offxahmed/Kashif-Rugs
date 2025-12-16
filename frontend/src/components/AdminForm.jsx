@@ -37,44 +37,45 @@ export default function AdminForm({ onSubmit, initialData = null, buttonText = '
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 bg-white p-6 rounded-lg shadow-md">
+    <form onSubmit={handleSubmit} className="space-y-6">
       <div>
-        <label className="block text-gray-700 text-sm font-bold mb-2">Title</label>
+        <label className="block text-gray-400 font-medium mb-2">Title</label>
         <input
           type="text"
           name="title"
           value={formData.title}
           onChange={handleChange}
           required
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="input"
         />
       </div>
 
       <div>
-        <label className="block text-gray-700 text-sm font-bold mb-2">Price ($)</label>
+        <label className="block text-gray-400 font-medium mb-2">Price ($)</label>
         <input
           type="number"
           name="price"
           value={formData.price}
           onChange={handleChange}
           required
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="input"
         />
       </div>
 
       <div>
-        <label className="block text-gray-700 text-sm font-bold mb-2">Description</label>
+        <label className="block text-gray-400 font-medium mb-2">Description</label>
         <textarea
           name="description"
           value={formData.description}
           onChange={handleChange}
           required
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          rows="4"
+          className="input resize-none"
         />
       </div>
 
       <div>
-        <label className="block text-gray-700 text-sm font-bold mb-2">
+        <label className="block text-gray-400 font-medium mb-2">
           Image {!initialData && '(Required)'}
         </label>
         <input
@@ -82,18 +83,19 @@ export default function AdminForm({ onSubmit, initialData = null, buttonText = '
           accept="image/*"
           onChange={handleImageChange}
           required={!initialData} // Required only if creating new
-          className="block w-full text-sm text-gray-500
+          className="block w-full text-sm text-gray-400
             file:mr-4 file:py-2 file:px-4
             file:rounded-full file:border-0
             file:text-sm file:font-semibold
-            file:bg-blue-50 file:text-blue-700
-            hover:file:bg-blue-100"
+            file:bg-accent-blue/10 file:text-accent-blue
+            hover:file:bg-accent-blue/20
+            cursor-pointer"
         />
       </div>
 
       <button
         type="submit"
-        className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        className="w-full bg-accent-blue text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition shadow-lg hover:shadow-blue-900/40"
       >
         {buttonText}
       </button>

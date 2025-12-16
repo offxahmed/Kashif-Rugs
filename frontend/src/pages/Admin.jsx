@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import AdminForm from '../components/AdminForm'
 import { getAllCarpets, createCarpet, updateCarpet, deleteCarpet } from '../services/carpetService'
+import { motion, AnimatePresence } from 'framer-motion'
 
 export default function Admin() {
   const [carpets, setCarpets] = useState([])
@@ -65,61 +66,97 @@ export default function Admin() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8 text-center text-gray-800">Admin Panel</h1>
+    <div className="min-h-screen bg-dark-bg py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <motion.h1
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-3xl md:text-4xl font-bold mb-10 text-center text-white"
+        >
+          Admin Panel
+        </motion.h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div>
-          <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-            <h2 className="text-xl font-semibold mb-4 text-gray-700">
-              {editingCarpet ? 'Edit Carpet' : 'Add New Carpet'}
-            </h2>
-            <AdminForm
-              onSubmit={editingCarpet ? handleUpdate : handleCreate}
-              initialData={editingCarpet}
-              buttonText={editingCarpet ? 'Update Carpet' : 'Add Carpet'}
-            />
-            {editingCarpet && (
-              <button
-                onClick={() => setEditingCarpet(null)}
-                className="mt-4 text-gray-600 hover:text-gray-800 underline block text-center w-full"
-              >
-                Cancel Editing
-              </button>
-            )}
-            {loading && <p className="text-center text-blue-500 mt-2">Processing...</p>}
-          </div>
-        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2 }}
+          >
+            <div className="bg-dark-surface border border-white/5 rounded-xl shadow-xl p-8 sticky top-24">
+              <h2 className="text-2xl font-bold mb-6 text-white border-b border-white/10 pb-4">
+                {editingCarpet ? 'Edit Carpet' : 'Add New Carpet'}
+              </h2>
+              <AdminForm
+                onSubmit={editingCarpet ? handleUpdate : handleCreate}
+                initialData={editingCarpet}
+                buttonText={editingCarpet ? 'Update Carpet' : 'Add Carpet'}
+              />
+              {editingCarpet && (
+                <button
+                  onClick={() => setEditingCarpet(null)}
+                  className="mt-4 text-gray-400 hover:text-white hover:underline block text-center w-full transition-colors"
+                >
+                  Cancel Editing
+                </button>
+              )}
+              {loading && <p className="text-center text-accent-blue mt-4 font-medium animate-pulse">Processing...</p>}
+            </div>
+          </motion.div>
 
-        <div>
-          <h2 className="text-xl font-semibold mb-4 text-gray-700">All Carpets ({carpets.length})</h2>
-          <div className="space-y-4">
-            {carpets.map(carpet => (
-              <div key={carpet._id} className="bg-white border rounded-lg p-4 flex justify-between items-center shadow-sm">
-                <div>
-                  <h3 className="font-bold text-lg text-gray-800">{carpet.title}</h3>
-                  <p className="text-gray-600">${carpet.price}</p>
-                </div>
-                <div className="flex space-x-2">
-                  <button
-                    onClick={() => setEditingCarpet(carpet)}
-                    className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded transition duration-200"
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            <h2 className="text-2xl font-bold mb-6 text-white border-b border-white/10 pb-4">All Carpets ({carpets.length})</h2>
+            <div className="space-y-4">
+              <AnimatePresence>
+                {carpets.map((carpet) => (
+                  <motion.div
+                    key={carpet._id}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    layout
+                    className="bg-dark-surface border border-white/5 rounded-xl p-5 flex flex-col sm:flex-row justify-between items-center shadow-lg hover:border-white/20 transition-all duration-200"
                   >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleDelete(carpet._id)}
-                    className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition duration-200"
-                  >
-                    Delete
-                  </button>
+                    <div className="flex items-center gap-4 mb-4 sm:mb-0 w-full sm:w-auto">
+                      <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 border border-white/10">
+                        <img
+                          src={`http://localhost:5000${carpet.imageUrl}`}
+                          alt={carpet.title}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div>
+                        <h3 className="font-bold text-lg text-white">{carpet.title}</h3>
+                        <p className="text-accent-blue font-mono font-medium">${carpet.price}</p>
+                      </div>
+                    </div>
+                    <div className="flex space-x-3 w-full sm:w-auto justify-end">
+                      <button
+                        onClick={() => setEditingCarpet(carpet)}
+                        className="bg-blue-600/20 hover:bg-blue-600/40 text-blue-400 px-4 py-2 rounded-lg transition-colors duration-200 font-medium border border-blue-500/30"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleDelete(carpet._id)}
+                        className="bg-red-600/20 hover:bg-red-600/40 text-red-400 px-4 py-2 rounded-lg transition-colors duration-200 font-medium border border-red-500/30"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+              {carpets.length === 0 && (
+                <div className="text-center py-12 bg-dark-surface border border-white/5 rounded-xl">
+                  <p className="text-gray-400 text-lg">No carpets found.</p>
                 </div>
-              </div>
-            ))}
-            {carpets.length === 0 && (
-              <p className="text-gray-500 text-center py-4">No carpets found.</p>
-            )}
-          </div>
+              )}
+            </div>
+          </motion.div>
         </div>
       </div>
     </div>
