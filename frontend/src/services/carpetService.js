@@ -1,4 +1,4 @@
-javascript
+
 import axios from 'axios'
 
 const API_URL = `${import.meta.env.VITE_API_URL}/carpets`
@@ -40,5 +40,10 @@ export const updateCarpet = async (id, formData) => {
   const response = await axios.put(`${API_URL}/${id}`, data, {
     headers: { 'Content-Type': 'multipart/form-data' }
   })
+  return response.data
+}
+
+export const deleteCarpet = async (id) => {
+  const response = await axios.delete(`${API_URL}/${id}`)
   return response.data
 }
