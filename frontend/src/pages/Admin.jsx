@@ -123,7 +123,7 @@ export default function Admin() {
                     <div className="flex items-center gap-4 mb-4 sm:mb-0 w-full sm:w-auto">
                       <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 border border-white/10">
                         <img
-                          src={`http://localhost:5000${carpet.imageUrl}`}
+                          src={carpet.imageUrl}
                           alt={carpet.title}
                           className="w-full h-full object-cover"
                         />

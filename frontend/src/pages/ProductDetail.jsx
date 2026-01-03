@@ -83,7 +83,7 @@ export default function ProductDetail() {
                 initial={{ scale: 1.1 }}
                 animate={{ scale: 1 }}
                 transition={{ duration: 0.8 }}
-                src={`http://localhost:5000${carpet.imageUrl}`}
+                src={carpet.imageUrl}
                 alt={carpet.title}
                 className="w-full h-full object-cover"
               />

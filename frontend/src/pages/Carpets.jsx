@@ -104,7 +104,7 @@ export default function Carpets() {
                   <div className="aspect-square overflow-hidden relative">
                     <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-300 z-10" />
                     <img
-                      src={`http://localhost:5000${carpet.imageUrl}`}
+                      src={carpet.imageUrl}
                       alt={carpet.title}
                       className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500 ease-in-out"
                     />
