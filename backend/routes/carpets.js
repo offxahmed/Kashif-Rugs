@@ -1,35 +1,12 @@
 import express from 'express';
 import multer from 'multer';
-import path from 'path';
 import Carpet from '../models/Carpet.js';
+import { storage } from '../config/cloudinary.js';
 
 const router = express.Router();
 
-// Configure Multer for file uploads
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, path.resolve('uploads'));
-  },
-  filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, uniqueSuffix + path.extname(file.originalname));
-  }
-});
+const upload = multer({ storage });
 
-const upload = multer({
-  storage,
-  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
-  fileFilter: (req, file, cb) => {
-    const filetypes = /jpeg|jpg|png|webp/;
-    const mimetype = filetypes.test(file.mimetype);
-    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-    
-    if (mimetype && extname) {
-      return cb(null, true);
-    }
-    cb(new Error('Only image files are allowed!'));
-  }
-});
 
 // GET all carpets
 router.get('/', async (req, res) => {
@@ -63,7 +40,7 @@ router.post('/', upload.single('image'), async (req, res) => {
       return res.status(400).json({ message: 'Image is required' });
     }
 
-    const imageUrl = `/uploads/${req.file.filename}`;
+    const imageUrl = req.file.path;
 
     const carpet = new Carpet({
       title,
@@ -86,7 +63,7 @@ router.put('/:id', upload.single('image'), async (req, res) => {
     const updateData = { title, price, description };
 
     if (req.file) {
-      updateData.imageUrl = `/uploads/${req.file.filename}`;
+      updateData.imageUrl = req.file.path;
     }
 
     const carpet = await Carpet.findByIdAndUpdate(

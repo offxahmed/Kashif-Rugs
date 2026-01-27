@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { motion, AnimatePresence } from 'framer-motion';
+import { getImageUrl } from '../services/carpetService';
 
 export default function Cart() {
   const { cartItems, removeFromCart, updateQuantity, getCartTotal } = useCart();
@@ -49,7 +50,7 @@ export default function Cart() {
                 >
                   <div className="w-full sm:w-32 h-32 rounded-lg overflow-hidden flex-shrink-0 border border-white/10">
                     <img
-                      src={item.imageUrl}
+                      src={getImageUrl(item.imageUrl)}
                       alt={item.title}
                       className="w-full h-full object-cover"
                     />

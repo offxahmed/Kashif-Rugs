@@ -2,6 +2,14 @@
 import axios from 'axios'
 
 const API_URL = `${import.meta.env.VITE_API_URL}/carpets`
+const BASE_URL = import.meta.env.VITE_API_URL.replace('/api', '')
+
+export const getImageUrl = (url) => {
+  if (!url) return ''
+  if (url.startsWith('http')) return url
+  if (url.startsWith('/uploads')) return `${BASE_URL}${url}`
+  return url
+}
 
 export const getAllCarpets = async () => {
   const response = await axios.get(API_URL)

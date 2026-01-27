@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getAllCarpets } from '../services/carpetService';
+import { getAllCarpets, getImageUrl } from '../services/carpetService';
 import { useCart } from '../context/CartContext';
 import { motion } from 'framer-motion';
 
@@ -104,7 +104,7 @@ export default function Carpets() {
                   <div className="aspect-square overflow-hidden relative">
                     <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-300 z-10" />
                     <img
-                      src={carpet.imageUrl}
+                      src={getImageUrl(carpet.imageUrl)}
                       alt={carpet.title}
                       className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500 ease-in-out"
                     />

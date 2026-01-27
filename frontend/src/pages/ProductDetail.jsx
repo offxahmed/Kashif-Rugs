@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { getCarpetById } from '../services/carpetService';
+import { getCarpetById, getImageUrl } from '../services/carpetService';
 import { useCart } from '../context/CartContext';
 import { motion } from 'framer-motion';
 
@@ -83,7 +83,7 @@ export default function ProductDetail() {
                 initial={{ scale: 1.1 }}
                 animate={{ scale: 1 }}
                 transition={{ duration: 0.8 }}
-                src={carpet.imageUrl}
+                src={getImageUrl(carpet.imageUrl)}
                 alt={carpet.title}
                 className="w-full h-full object-cover"
               />
